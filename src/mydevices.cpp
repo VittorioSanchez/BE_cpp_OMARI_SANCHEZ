@@ -1,6 +1,5 @@
-
 #include "mydevices.h"
-
+//TEST !
 using namespace std;
 
 //classe AnalogSensorTemperature
