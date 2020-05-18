@@ -18,12 +18,11 @@ int main(){
   esp8266.pin(0,led1);
   esp8266.i2c(1,screen);
   esp8266.pin(2,luminosity);
-<<<<<<< HEAD
   esp8266.pin(4,button);
   
-=======
+
   esp8266.pin(3,led2);
->>>>>>> s1q2
+
   
   // allumage de la carte
   esp8266.run();

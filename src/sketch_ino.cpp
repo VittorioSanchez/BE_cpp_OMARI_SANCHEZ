@@ -9,11 +9,9 @@ void Board::setup(){
   pinMode(1,INPUT);
   pinMode(0,OUTPUT);
   pinMode(2,INPUT);
-<<<<<<< HEAD
   pinMode(4,INPUT);
-=======
   pinMode(3,OUTPUT);
->>>>>>> s1q2
+
 }
 
 // la boucle de controle arduino

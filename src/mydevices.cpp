@@ -2,7 +2,7 @@
 using namespace std;
 extern int luminosite_environnement=200;
 
-<<<<<<< HEAD
+
 //classe ExternalDigitalSensorButton
 ExternalDigitalSensorButton::ExternalDigitalSensorButton(int d):Device(),temps(d){
 	val=0;
@@ -22,8 +22,7 @@ void ExternalDigitalSensorButton::run(){
 	}
 }
 
-=======
->>>>>>> s1q2
+
 //classe AnalogSensorLuminosity
 AnalogSensorLuminosity::AnalogSensorLuminosity(int d):Device(),val(luminosite_environnement),temps(d){
 	alea=1;
