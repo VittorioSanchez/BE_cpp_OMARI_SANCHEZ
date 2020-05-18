@@ -11,7 +11,6 @@ class AnalogSensorLuminosity: public Device {
 private:
   // fait osciller la valeur du cpateur de 1
   int alea;
-  // valeur de temperature mesuree
   int val;
   // temps entre 2 prises de valeurs
   int temps;
