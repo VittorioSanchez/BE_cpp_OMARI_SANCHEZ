@@ -1,8 +1,8 @@
 #include "mydevices.h"
-//TEST !
 using namespace std;
 extern int luminosite_environnement=200;
 
+<<<<<<< HEAD
 //classe ExternalDigitalSensorButton
 ExternalDigitalSensorButton::ExternalDigitalSensorButton(int d):Device(),temps(d){
 	val=0;
@@ -22,6 +22,8 @@ void ExternalDigitalSensorButton::run(){
 	}
 }
 
+=======
+>>>>>>> s1q2
 //classe AnalogSensorLuminosity
 AnalogSensorLuminosity::AnalogSensorLuminosity(int d):Device(),val(luminosite_environnement),temps(d){
 	alea=1;
@@ -29,6 +31,7 @@ AnalogSensorLuminosity::AnalogSensorLuminosity(int d):Device(),val(luminosite_en
 
 void AnalogSensorLuminosity::run(){
   while(1){
+    val=luminosite_environnement;
     alea=1-alea;
     if(ptrmem!=NULL)
       *ptrmem=val+alea;
@@ -60,9 +63,32 @@ void DigitalActuatorLED::run(){
     if (state==LOW)
       cout << "((((eteint))))\n";
     else
-    cout << "((((allume))))\n";
+      cout << "((((allume))))\n";
     sleep(temps);
     }
+}
+
+void IntelligentDigitalActuatorLED::run(){
+  int old_state;
+  while(1){
+    if(ptrmem!=NULL){
+      state=*ptrmem;
+    }
+    if (state==LOW){
+      cout << "((((Ieteint))))\n";
+      if(state != old_state){
+	luminosite_environnement -=50;
+      }
+    }
+    else{
+      cout << "((((Iallume))))\n";
+      if(state != old_state){
+	luminosite_environnement +=50;
+      }
+    }
+    sleep(temps);
+    old_state=state;
+  }
 }
 
 // classe I2CActuatorScreen

@@ -9,7 +9,11 @@ void Board::setup(){
   pinMode(1,INPUT);
   pinMode(0,OUTPUT);
   pinMode(2,INPUT);
+<<<<<<< HEAD
   pinMode(4,INPUT);
+=======
+  pinMode(3,OUTPUT);
+>>>>>>> s1q2
 }
 
 // la boucle de controle arduino
@@ -33,7 +37,7 @@ void Board::loop(){
     }
 	// lecture sur la pin 2 : capteur de luminosite
 	val2=analogRead(2);
-	 sprintf(buf,"luminosity %d",val2);
+	sprintf(buf,"luminosity %d",val2);
 	Serial.println(buf);
 	 if(cpt%5==0){
 		sprintf(buf,"%d",val2);
@@ -52,12 +56,17 @@ void Board::loop(){
     sleep(1);
   }
 // on eteint et on allume la LED
-  if(bascule)
+  if(bascule){
     digitalWrite(0,HIGH);
-  else
+    digitalWrite(3,HIGH);
+  }
+  else{
     digitalWrite(0,LOW);
+    digitalWrite(3,LOW);
+  }
   bascule=1-bascule;
   
+  cout<< "\n";
 }
 
 
