@@ -1,8 +1,27 @@
 #include "mydevices.h"
 //TEST !
 using namespace std;
-
 extern int luminosite_environnement=200;
+
+//classe ExternalDigitalSensorButton
+ExternalDigitalSensorButton::ExternalDigitalSensorButton(int d):Device(),temps(d){
+	val=0;
+}
+void ExternalDigitalSensorButton::run(){
+	while (1){
+		if(ifstream("on.txt")){
+			val=1;
+			*ptrmem=val;
+		}
+		else{
+			val=0;
+			*ptrmem=val;
+		}
+			
+		sleep(temps);
+	}
+}
+
 //classe AnalogSensorLuminosity
 AnalogSensorLuminosity::AnalogSensorLuminosity(int d):Device(),val(luminosite_environnement),temps(d){
 	alea=1;

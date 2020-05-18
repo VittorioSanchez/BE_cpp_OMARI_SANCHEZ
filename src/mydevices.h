@@ -6,6 +6,19 @@
 #include <unistd.h>
 #include <string.h>
 #include "core_simulation.h"
+#include <fstream>
+
+class ExternalDigitalSensorButton:public Device{
+	private :
+		int val;
+		int temps;
+		
+	public:
+		ExternalDigitalSensorButton(int d);
+		virtual void run();
+		
+	
+};
 
 class AnalogSensorLuminosity: public Device {
 private:
