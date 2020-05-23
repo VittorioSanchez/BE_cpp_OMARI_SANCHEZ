@@ -2,28 +2,40 @@
 using namespace std;
 extern int luminosite_environnement=200;
 
-<<<<<<< HEAD
+void Sound::playSound(){
+  ifstream soundFile(fileLocation);
+  if(soundFile){
+    string line;
+    while(getline(soundFile, line)){
+      cout << line << endl;
+    }
+  }
+  soundFile.close();
+}
+
+string Sound::getSoundTag(){
+  return soundTag;
+}
+
 //classe ExternalDigitalSensorButton
 ExternalDigitalSensorButton::ExternalDigitalSensorButton(int d):Device(),temps(d){
 	val=0;
 }
 void ExternalDigitalSensorButton::run(){
-	while (1){
-		if(ifstream("on.txt")){
-			val=1;
-			*ptrmem=val;
-		}
-		else{
-			val=0;
-			*ptrmem=val;
-		}
+  while (1){
+    if(ifstream("on.txt")){
+      val=1;
+      *ptrmem=val;
+    }
+    else{
+      val=0;
+      *ptrmem=val;
+    }
 			
-		sleep(temps);
-	}
+    sleep(temps);
+  }
 }
 
-=======
->>>>>>> s1q2
 //classe AnalogSensorLuminosity
 AnalogSensorLuminosity::AnalogSensorLuminosity(int d):Device(),val(luminosite_environnement),temps(d){
 	alea=1;

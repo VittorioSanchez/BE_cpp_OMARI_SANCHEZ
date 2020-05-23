@@ -8,6 +8,18 @@
 #include "core_simulation.h"
 #include <fstream>
 
+class Sound {
+ protected:
+  int time;
+  string soundTag;
+  string fileLocation;
+
+ public:
+ Sound(int time,string tag,string loc): time(time),soundTag(tag), fileLocation(loc) {};
+  void playSound();
+  string getSoundTag();
+};
+
 class ExternalDigitalSensorButton:public Device{
 	private :
 		int val;
@@ -22,7 +34,7 @@ class ExternalDigitalSensorButton:public Device{
 
 class AnalogSensorLuminosity: public Device {
 private:
-  // fait osciller la valeur du cpateur de 1
+  // fait osciller la valeur du capteur de 1
   int alea;
   // valeur de temperature mesuree
   int val;

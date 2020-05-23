@@ -9,11 +9,8 @@ void Board::setup(){
   pinMode(1,INPUT);
   pinMode(0,OUTPUT);
   pinMode(2,INPUT);
-<<<<<<< HEAD
   pinMode(4,INPUT);
-=======
   pinMode(3,OUTPUT);
->>>>>>> s1q2
 }
 
 // la boucle de controle arduino
@@ -35,21 +32,21 @@ void Board::loop(){
       sprintf(buf,"%d",val);
       bus.write(1,buf,100);
     }
-	// lecture sur la pin 2 : capteur de luminosite
-	val2=analogRead(2);
-	sprintf(buf,"luminosity %d",val2);
-	Serial.println(buf);
+       	// lecture sur la pin 2 : capteur de luminosite
+	 val2=analogRead(2);
+	 sprintf(buf,"luminosity %d",val2);
+	 Serial.println(buf);
 	 if(cpt%5==0){
-		sprintf(buf,"%d",val2);
-		bus.write(1,buf,100);
+	   sprintf(buf,"%d",val2);
+	   bus.write(1,buf,100);
 	 }
 	 // lecture sur la pin 4 : button externe
 	 val4=analogRead(4);
 	 sprintf(buf,"etat bouton %d",val4);
-	Serial.println(buf);
+	 Serial.println(buf);
 	 if(cpt%5==0){
-		sprintf(buf,"%d",val4);
-		bus.write(1,buf,100);
+	   sprintf(buf,"%d",val4);
+	   bus.write(1,buf,100);
 	 }
 	 
     cpt++;
