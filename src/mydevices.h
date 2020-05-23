@@ -7,6 +7,24 @@
 #include <string.h>
 #include "core_simulation.h"
 #include <fstream>
+#include <vector>
+#include <list>
+#include <map>
+#include <set>
+
+
+
+class Sound {
+ protected:
+  int time;
+  string soundTag;
+  string fileLocation;
+
+ public:
+ Sound(int time,string tag,string loc): time(time),soundTag(tag), fileLocation(loc) {};
+  void playSound();
+  string getSoundTag();
+};
 
 class ExternalDigitalSensorButton:public Device{
 	private :
@@ -21,8 +39,8 @@ class ExternalDigitalSensorButton:public Device{
 };
 
 class AnalogSensorLuminosity: public Device {
-private:
-  // fait osciller la valeur du cpateur de 1
+protected:
+  // fait osciller la valeur du capteur de 1
   int alea;
   // valeur de temperature mesuree
   int val;
@@ -66,6 +84,7 @@ public:
   DigitalActuatorLED(int t);
   // thread representant l'actionneur et permettant de fonctionner independamment de la board
   virtual void run();
+  void setState(int d);
 };
 
 class IntelligentDigitalActuatorLED: public DigitalActuatorLED{
@@ -88,5 +107,37 @@ public:
   // thread representant le capteur et permettant de fonctionner independamment de la board
   virtual void run();
 };
+
+class Vumeter:public Device{
+	protected:
+	vector <DigitalActuatorLED> vectorLED;
+	int intensity;
+	int temps;
+	int state;
+	
+	public:
+		// initialisation du temps de rafraichiisement
+	  Vumeter(int t);
+	  // thread representant l'actionneur et permettant de fonctionner independamment de la board
+	  virtual void run();
+	  // allume les LED en fonction de l'intensite
+	  void turnOnLight(int d);
+	  void turnOffLight(int d);
+	  
+};
+
+
+
+class AnalogSensorLuminositySoundDevice:public AnalogSensorLuminosity{
+	private:
+	vector <Sound> vectorSound;
+	Vumeter *m_Vumeter;
+	
+	public:
+	AnalogSensorLuminositySoundDevice(int t, Sound son1,Sound son2,Sound son3,Sound son4,Sound son5,Vumeter *vu);
+	virtual void run(); 
+	
+};
+
 
 #endif

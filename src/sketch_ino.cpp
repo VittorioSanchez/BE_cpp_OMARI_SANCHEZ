@@ -11,7 +11,8 @@ void Board::setup(){
   pinMode(2,INPUT);
   pinMode(4,INPUT);
   pinMode(3,OUTPUT);
-
+  pinMode(5,INPUT);
+	
 }
 
 // la boucle de controle arduino
@@ -20,11 +21,12 @@ void Board::loop(){
   int val;
   int val2;
   int val4;
+  int val5;
   static int cpt=0;
   static int bascule=0;
   int i=0;
   for(i=0;i<10;i++){
-    // lecture sur la pin 1 : capteur de temperature
+/*     // lecture sur la pin 1 : capteur de temperature
     val=analogRead(1);
     sprintf(buf,"temperature %d",val);
 	Serial.println(buf);
@@ -33,22 +35,25 @@ void Board::loop(){
       sprintf(buf,"%d",val);
       bus.write(1,buf,100);
     }
-	// lecture sur la pin 2 : capteur de luminosite
-	val2=analogRead(2);
-	sprintf(buf,"luminosity %d",val2);
-	Serial.println(buf);
+       	// lecture sur la pin 2 : capteur de luminosite
+	 val2=analogRead(2);
+	 sprintf(buf,"luminosity %d",val2);
+	 Serial.println(buf);
 	 if(cpt%5==0){
-		sprintf(buf,"%d",val2);
-		bus.write(1,buf,100);
+	   sprintf(buf,"%d",val2);
+	   bus.write(1,buf,100);
 	 }
 	 // lecture sur la pin 4 : button externe
 	 val4=analogRead(4);
 	 sprintf(buf,"etat bouton %d",val4);
-	Serial.println(buf);
+	 Serial.println(buf);
 	 if(cpt%5==0){
-		sprintf(buf,"%d",val4);
-		bus.write(1,buf,100);
-	 }
+	   sprintf(buf,"%d",val4);
+	   bus.write(1,buf,100);
+	 } */
+	  // lecture sur la pin 5 : vumetre
+	 val5=analogRead(5);
+
 	 
     cpt++;
     sleep(1);
