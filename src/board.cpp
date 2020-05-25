@@ -21,7 +21,13 @@ int main(){
   Sound son3(DELAY,"sonLum3","SonsLuminosite/loc3.txt");
   Sound son4(DELAY,"sonLum4","SonsLuminosite/loc4.txt");
   Sound son5(DELAY,"sonLum5","SonsLuminosite/loc5.txt");
-  AnalogSensorLuminositySoundDevice capteurMusical1(DELAY,noSound,son1,son2,son3,son4,son5,&vumetre1);
+  AnalogSensorLuminositySoundDevice capteurMusical1(DELAY,&vumetre1);
+  capteurMusical1.addSound(noSound);
+  capteurMusical1.addSound(son1);
+  capteurMusical1.addSound(son2);
+  capteurMusical1.addSound(son3);
+  capteurMusical1.addSound(son4);
+  capteurMusical1.addSound(son5);
   
   //bouton music 1
   Sound son6(DELAY,"sonBoutton1","SonsBoutons/son1.txt");

@@ -193,33 +193,103 @@ void Vumeter::run(){
 }
 
 
-AnalogSensorLuminositySoundDevice::AnalogSensorLuminositySoundDevice(int t,Sound pasDeSon ,Sound son1,Sound son2,Sound son3,Sound son4,Sound son5,Vumeter *vu):AnalogSensorLuminosity(t){
-	vectorSound.push_back(pasDeSon);
-	vectorSound.push_back(son1);
-	vectorSound.push_back(son2);
-	vectorSound.push_back(son3);
-	vectorSound.push_back(son4);
-	vectorSound.push_back(son5);
+AnalogSensorUltrasoundSoundDevice::AnalogSensorUltrasoundSoundDevice(int t,Vumeter *vu):AnalogSensorLuminosity(t){
 	m_Vumeter=vu;
-	cout<<"creation d'un AnalogSensorLuminositySoundDevice avec succès"<<endl; 
-
+	nbSounds=0;
+	cout<<"creation d'un AnalogSensorUltrasoundSoundDevice avec succès"<<endl; 
 }
 
 
-void AnalogSensorLuminositySoundDevice::run(){
+void AnalogSensorUltrasoundSoundDevice::addSound(Sound son){
+  vectorSound.push_back(son);
+  nbSounds+=1;
+}
+
+
+int AnalogSensorUltrasoundSoundDevice::getValProximity(){
+  ifstream file("PROXIMITY.txt");
+  int valProx=0;
+  if(file){
+    string line;
+    while(getline(file, line)){
+      valProx=stoi(line);
+    }
+  }
+  else
+    valProx=-1;
+  file.close();
+  return valProx;
+}
+
+
+void AnalogSensorUltrasoundSoundDevice::run(){
 	while (1){
-		val=luminosite_environnement;
+		int aux_val=getValProximity();
+	        if(aux_val != -1)
+		  val=aux_val;
 		alea=1-alea;
 		if(ptrmem!=NULL){
 		  *ptrmem=val+alea;
-		  int intensity = *ptrmem/((VAL_MAX_ANALOG_SENSOR_LUM-VAL_MIN_ANALOG_SENSOR_LUM)/5);		  // attention, nb sons codé en dur
-		  vectorSound[intensity].playSound();
-		  m_Vumeter->setIntensity(intensity);
+		  int intensity = *ptrmem/((VAL_MAX_ULTRASOUND-VAL_MIN_ULTRASOUND)/nbSounds);
+		  if( intensity < nbSounds){
+		    vectorSound[intensity].playSound();
+		    m_Vumeter->setIntensity(intensity);
+		  }
+		  else
+		    m_Vumeter->setIntensity(0);
 		}
 		sleep(temps);
 	}
 }
 
+
+AnalogSensorLuminositySoundDevice::AnalogSensorLuminositySoundDevice(int t,Vumeter *vu):AnalogSensorLuminosity(t){
+	m_Vumeter=vu;
+	nbSounds=0;
+	cout<<"creation d'un AnalogSensorLuminositySoundDevice avec succès"<<endl; 
+}
+
+
+void AnalogSensorLuminositySoundDevice::addSound(Sound son){
+  vectorSound.push_back(son);
+  nbSounds+=1;
+}
+
+
+int AnalogSensorLuminositySoundDevice::getValLum(){
+  ifstream file("LUM_ENV.txt");
+  int valLum=0;
+  if(file){
+    string line;
+    while(getline(file, line)){
+      valLum=stoi(line);
+    }
+  }
+  else
+    valLum=-1;
+  file.close();
+  return valLum;
+}
+
+
+void AnalogSensorLuminositySoundDevice::run(){
+	while (1){
+      	        int aux_val=getValLum();
+	        if(aux_val != -1)
+		  val=aux_val;
+		alea=1-alea;
+		if(ptrmem!=NULL){
+		  *ptrmem=val+alea;
+		  int intensity = *ptrmem/((VAL_MAX_ANALOG_SENSOR_LUM-VAL_MIN_ANALOG_SENSOR_LUM)/nbSounds);
+		  if(intensity >= nbSounds)
+		    intensity = nbSounds-1; // si on est supérieur à la valeur max, on maintien le son correspondant à l'intensité max, c'est la différence avec l'ultrason
+		  vectorSound[intensity].playSound();
+		  cout << getValLum() << endl;
+		  m_Vumeter->setIntensity(intensity);
+		}
+		sleep(temps);
+	}
+}
 
 void ButtonSoundDevice::run(){
   while(1){

@@ -128,14 +128,32 @@ class Vumeter: public Device{
 
 class AnalogSensorLuminositySoundDevice:public AnalogSensorLuminosity{
 	private:
+        int nbSounds;
 	vector <Sound> vectorSound;
 	Vumeter *m_Vumeter;
 	
 	public:
-	AnalogSensorLuminositySoundDevice(int t, Sound pasDeSon, Sound son1,Sound son2,Sound son3,Sound son4,Sound son5,Vumeter *vu);
+	AnalogSensorLuminositySoundDevice(int t,Vumeter *vu);
+	void addSound(Sound son);
+	int getValLum();
 	virtual void run(); 
 	
 };
+
+
+class AnalogSensorUltrasoundSoundDevice:public AnalogSensorLuminosity{
+	private:
+        int nbSounds;
+	vector <Sound> vectorSound;
+	Vumeter *m_Vumeter;
+	
+	public:
+	AnalogSensorUltrasoundSoundDevice(int t,Vumeter *vu);
+	void addSound(Sound son);
+	int getValProximity();
+	virtual void run(); 
+};
+
 
 class ButtonSoundDevice: public ExternalDigitalSensorButton {
  private:
