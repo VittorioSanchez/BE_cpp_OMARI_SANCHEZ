@@ -1,8 +1,13 @@
 #include "mydevices.h"
 #include <vector>
-using namespace std;
-extern int luminosite_environnement=200;
 
+using namespace std;
+
+extern int luminosite_environnement=200;
+extern int VAL_MAX_ANALOG_SENSOR_LUM = 50;
+extern int VAL_MIN_ANALOG_SENSOR_LUM = 5;
+extern int VAL_MAX_ULTRASOUND = 200;
+extern int VAL_MIN_ULTRASOUND = 10;
 
 
 void Sound::playSound(){
@@ -10,7 +15,7 @@ void Sound::playSound(){
   if(soundFile){
     string line;
     while(getline(soundFile, line)){
-      cout << line << endl;
+      cout << " ****** "+soundTag+" :  " << line <<" ****** " << endl;
     }
   }
   soundFile.close();
@@ -45,6 +50,7 @@ AnalogSensorLuminosity::AnalogSensorLuminosity(int d):Device(),val(luminosite_en
 	alea=1;
 }
 
+
 void AnalogSensorLuminosity::run(){
   while(1){
     val=luminosite_environnement;
@@ -58,6 +64,7 @@ void AnalogSensorLuminosity::run(){
 AnalogSensorTemperature::AnalogSensorTemperature(int d,int  t):Device(),val(t),temps(d){
   alea=1;
 }
+
 
 void AnalogSensorTemperature::run(){
   while(1){
@@ -73,6 +80,7 @@ void AnalogSensorTemperature::run(){
 DigitalActuatorLED::DigitalActuatorLED(int t):Device(),state(LOW),temps(t){
 }
 
+
 void DigitalActuatorLED::run(){
   while(1){
     if(ptrmem!=NULL)
@@ -84,9 +92,12 @@ void DigitalActuatorLED::run(){
     sleep(temps);
     }
 }
+
+
 void DigitalActuatorLED::setState(int d){
 	state=d;
 }
+
 
 void IntelligentDigitalActuatorLED::run(){
   int old_state;
@@ -111,6 +122,7 @@ void IntelligentDigitalActuatorLED::run(){
   }
 }
 
+
 // classe I2CActuatorScreen
 I2CActuatorScreen::I2CActuatorScreen ():Device(){
   }
@@ -124,6 +136,7 @@ void I2CActuatorScreen::run(){
     sleep(1);
     }
 }
+
 
 Vumeter::Vumeter(int t):Device(){
 	intensity=0;
@@ -149,6 +162,11 @@ void Vumeter::turnOnLight(int d){
 void Vumeter::turnOffLight(int d){
 	vectorLED[d].setState(LOW);
 }
+
+void Vumeter::setIntensity(int intens){
+  intensity = intens; 
+}
+
 
 void Vumeter::run(){
 	while (1){
@@ -182,11 +200,35 @@ AnalogSensorLuminositySoundDevice::AnalogSensorLuminositySoundDevice(int t, Soun
 	vectorSound.push_back(son4);
 	vectorSound.push_back(son5);
 	m_Vumeter=vu;
-	
 }
+
+
 void AnalogSensorLuminositySoundDevice::run(){
 	while (1){
-		
+		val=luminosite_environnement;
+		alea=1-alea;
+		if(ptrmem!=NULL){
+		  *ptrmem=val+alea;
+		  int intensity = *ptrmem/((VAL_MAX_ANALOG_SENSOR_LUM-VAL_MIN_ANALOG_SENSOR_LUM)/5); // attention, nb sons codé en dur
+		  vectorSound[intensity].playSound();
+		  m_Vumeter->setIntensity(intensity);
+		}
 		sleep(temps);
 	}
+}
+
+
+void ButtonSoundDevice::run(){
+  while(1){
+    if(ifstream(fileButton)){
+      val=1;
+      *ptrmem=val;
+      sound.playSound();
+    }
+    else{
+      val=0;
+      *ptrmem=val;
+    }
+    sleep(temps);
+  }
 }

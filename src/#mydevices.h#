@@ -154,7 +154,7 @@ class Instrument{
   int state;
 
  public:
- 
+  Instrument(); 
 }
 
 #endif
