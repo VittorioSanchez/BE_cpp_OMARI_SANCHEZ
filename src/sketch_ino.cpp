@@ -12,16 +12,20 @@ void Board::setup(){
   pinMode(4,INPUT);
   pinMode(3,OUTPUT);
   pinMode(5,INPUT);
+  pinMode(6,INPUT);
+  pinMode(7,INPUT);
+  pinMode(8,INPUT);
 	
 }
 
 // la boucle de controle arduino
 void Board::loop(){
   char buf[100];
-  int val;
+/*   int val;
   int val2;
-  int val4;
+  int val4; */
   int val5;
+  int val6;
   static int cpt=0;
   static int bascule=0;
   int i=0;
@@ -52,13 +56,14 @@ void Board::loop(){
 	   bus.write(1,buf,100);
 	 } */
 	  // lecture sur la pin 5 : vumetre
-	 val5=analogRead(5);
+	 //val5=analogRead(5);
+	 //val6=analogRead(6);
 
 	 
     cpt++;
     sleep(1);
   }
-// on eteint et on allume la LED
+/* on eteint et on allume la LED
   if(bascule){
     digitalWrite(0,HIGH);
     digitalWrite(3,HIGH);
@@ -67,7 +72,7 @@ void Board::loop(){
     digitalWrite(0,LOW);
     digitalWrite(3,LOW);
   }
-  bascule=1-bascule;
+  bascule=1-bascule; */
   
   cout<< "\n";
 }

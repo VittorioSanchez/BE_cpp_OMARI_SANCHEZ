@@ -24,6 +24,7 @@ class Sound {
  Sound(int time,string tag,string loc): time(time),soundTag(tag), fileLocation(loc) {};
   void playSound();
   string getSoundTag();
+  
 };
 
 class ExternalDigitalSensorButton:public Device{
@@ -131,7 +132,7 @@ class AnalogSensorLuminositySoundDevice:public AnalogSensorLuminosity{
 	Vumeter *m_Vumeter;
 	
 	public:
-	AnalogSensorLuminositySoundDevice(int t, Sound son1,Sound son2,Sound son3,Sound son4,Sound son5,Vumeter *vu);
+	AnalogSensorLuminositySoundDevice(int t, Sound pasDeSon, Sound son1,Sound son2,Sound son3,Sound son4,Sound son5,Vumeter *vu);
 	virtual void run(); 
 	
 };
@@ -154,7 +155,10 @@ class Instrument{
   int state;
 
  public:
+ Instrument(ButtonSoundDevice BSD1,ButtonSoundDevice BSD2, AnalogSensorLuminositySoundDevice LSD1);
+ void run();
  
-}
+ 
+};
 
 #endif

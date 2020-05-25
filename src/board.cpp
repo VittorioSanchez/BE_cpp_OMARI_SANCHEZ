@@ -14,15 +14,32 @@ int main(){
   I2CActuatorScreen screen;
   ExternalDigitalSensorButton button(DELAY);
   
-  // branchement des capteurs actionneurs
-/*   esp8266.pin(1,temperature);
-  esp8266.pin(0,led1);
-  esp8266.i2c(1,screen);
-  esp8266.pin(2,luminosity);
-  esp8266.pin(4,button);
- */
- esp8266.pin(5,vumetre1);
+  // capteur luminosite music
+  Sound noSound(DELAY,"pas de son","SonsLuminosite/noSound.txt");
+  Sound son1(DELAY,"sonLum1","SonsLuminosite/loc1.txt");
+  Sound son2(DELAY,"sonLum2","SonsLuminosite/loc2.txt");
+  Sound son3(DELAY,"sonLum3","SonsLuminosite/loc3.txt");
+  Sound son4(DELAY,"sonLum4","SonsLuminosite/loc4.txt");
+  Sound son5(DELAY,"sonLum5","SonsLuminosite/loc5.txt");
+  AnalogSensorLuminositySoundDevice capteurMusical1(DELAY,noSound,son1,son2,son3,son4,son5,&vumetre1);
   
+  //bouton music 1
+  Sound son6(DELAY,"sonBoutton1","SonsBoutons/son1.txt");
+  ButtonSoundDevice boutonSound1(DELAY,son6,"SonsBoutons/son1.txt");
+    //bouton music 2
+  Sound son7(DELAY,"sonBoutton2","SonsBoutons/son1.txt");
+  ButtonSoundDevice boutonSound2(DELAY,son6,"SonsBoutons/son1.txt");
+  
+  //intsrument
+  Instrument monInstrument(boutonSound1,boutonSound2,capteurMusical1);
+
+  // branchement des capteurs actionneurs
+  esp8266.pin(5,vumetre1);
+  esp8266.pin(6,capteurMusical1);
+  esp8266.pin(7,boutonSound1);
+  esp8266.pin(8,boutonSound2); 
+  monInstrument.run();
+ 
 /* 
   esp8266.pin(3,led2);
 

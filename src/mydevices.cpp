@@ -4,7 +4,7 @@
 using namespace std;
 
 extern int luminosite_environnement=200;
-extern int VAL_MAX_ANALOG_SENSOR_LUM = 50;
+extern int VAL_MAX_ANALOG_SENSOR_LUM = 200;
 extern int VAL_MIN_ANALOG_SENSOR_LUM = 5;
 extern int VAL_MAX_ULTRASOUND = 200;
 extern int VAL_MIN_ULTRASOUND = 10;
@@ -193,13 +193,16 @@ void Vumeter::run(){
 }
 
 
-AnalogSensorLuminositySoundDevice::AnalogSensorLuminositySoundDevice(int t, Sound son1,Sound son2,Sound son3,Sound son4,Sound son5,Vumeter *vu):AnalogSensorLuminosity(t){
+AnalogSensorLuminositySoundDevice::AnalogSensorLuminositySoundDevice(int t,Sound pasDeSon ,Sound son1,Sound son2,Sound son3,Sound son4,Sound son5,Vumeter *vu):AnalogSensorLuminosity(t){
+	vectorSound.push_back(pasDeSon);
 	vectorSound.push_back(son1);
 	vectorSound.push_back(son2);
 	vectorSound.push_back(son3);
 	vectorSound.push_back(son4);
 	vectorSound.push_back(son5);
 	m_Vumeter=vu;
+	cout<<"creation d'un AnalogSensorLuminositySoundDevice avec succès"<<endl; 
+
 }
 
 
@@ -209,7 +212,7 @@ void AnalogSensorLuminositySoundDevice::run(){
 		alea=1-alea;
 		if(ptrmem!=NULL){
 		  *ptrmem=val+alea;
-		  int intensity = *ptrmem/((VAL_MAX_ANALOG_SENSOR_LUM-VAL_MIN_ANALOG_SENSOR_LUM)/5); // attention, nb sons codé en dur
+		  int intensity = *ptrmem/((VAL_MAX_ANALOG_SENSOR_LUM-VAL_MIN_ANALOG_SENSOR_LUM)/5);		  // attention, nb sons codé en dur
 		  vectorSound[intensity].playSound();
 		  m_Vumeter->setIntensity(intensity);
 		}
@@ -231,4 +234,23 @@ void ButtonSoundDevice::run(){
     }
     sleep(temps);
   }
+}
+
+ Instrument::Instrument(ButtonSoundDevice BSD1,ButtonSoundDevice BSD2, AnalogSensorLuminositySoundDevice LSD1){
+	 modules.push_back(BSD1);
+	 modules.push_back(BSD2);
+	 modules.push_back(LSD1);
+	 state=0;
+ }
+
+void Instrument::run(){
+	if (state==1){
+		for (int i=0;i<modules.size();i++){
+			modules[i].run();
+		}
+	}
+	else {
+		cout<<"instrument eteint"<<endl;
+	}
+
 }
