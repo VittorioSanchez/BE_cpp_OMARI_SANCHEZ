@@ -1,0 +1,3 @@
+ #!/usr/bin/bash
+echo "g++ -c test_sfml.cpp"
+g++ -c test_sfml.cpp

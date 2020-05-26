@@ -1,5 +1,4 @@
 #include "mydevices.h"
-#include <vector>
 
 using namespace std;
 
@@ -11,14 +10,8 @@ extern int VAL_MIN_ULTRASOUND = 10;
 
 
 void Sound::playSound(){
-  ifstream soundFile(fileLocation);
-  if(soundFile){
-    string line;
-    while(getline(soundFile, line)){
-      cout << " ****** "+soundTag+" :  " << line <<" ****** " << endl;
-    }
-  }
-  soundFile.close();
+  cout << " ****** "+soundTag+" playing  " <<" ****** " << endl;
+  son.play();
 }
 
 string Sound::getSoundTag(){
@@ -284,7 +277,6 @@ void AnalogSensorLuminositySoundDevice::run(){
 		  if(intensity >= nbSounds)
 		    intensity = nbSounds-1; // si on est supérieur à la valeur max, on maintien le son correspondant à l'intensité max, c'est la différence avec l'ultrason
 		  vectorSound[intensity].playSound();
-		  cout << getValLum() << endl;
 		  m_Vumeter->setIntensity(intensity);
 		}
 		sleep(temps);

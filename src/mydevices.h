@@ -11,6 +11,7 @@
 #include <list>
 #include <map>
 #include <set>
+#include <SFML/Audio.hpp>
 
 
 
@@ -19,9 +20,13 @@ class Sound {
   int time;
   string soundTag;
   string fileLocation;
+  sf::SoundBuffer buffer;
+  sf::Sound son;
 
  public:
- Sound(int time,string tag,string loc): time(time),soundTag(tag), fileLocation(loc) {};
+ Sound(int time,string tag,string loc): time(time),soundTag(tag), fileLocation(loc) {
+    buffer.loadFromFile(fileLocation);
+    son.setBuffer(buffer);};
   void playSound();
   string getSoundTag();
   

@@ -15,14 +15,12 @@ int main(){
   ExternalDigitalSensorButton button(DELAY);
   
   // capteur luminosite music
-  Sound noSound(DELAY,"pas de son","SonsLuminosite/noSound.txt");
-  Sound son1(DELAY,"sonLum1","SonsLuminosite/loc1.txt");
-  Sound son2(DELAY,"sonLum2","SonsLuminosite/loc2.txt");
-  Sound son3(DELAY,"sonLum3","SonsLuminosite/loc3.txt");
-  Sound son4(DELAY,"sonLum4","SonsLuminosite/loc4.txt");
-  Sound son5(DELAY,"sonLum5","SonsLuminosite/loc5.txt");
+  Sound son1(DELAY,"sonLum1","SonsLuminosite/loc1.wav");
+  Sound son2(DELAY,"sonLum2","SonsLuminosite/loc2.wav");
+  Sound son3(DELAY,"sonLum3","SonsLuminosite/loc3.wav");
+  Sound son4(DELAY,"sonLum4","SonsLuminosite/loc4.wav");
+  Sound son5(DELAY,"sonLum5","SonsLuminosite/loc5.wav");
   AnalogSensorLuminositySoundDevice capteurMusical1(DELAY,&vumetre1);
-  capteurMusical1.addSound(noSound);
   capteurMusical1.addSound(son1);
   capteurMusical1.addSound(son2);
   capteurMusical1.addSound(son3);
@@ -30,7 +28,7 @@ int main(){
   capteurMusical1.addSound(son5);
   
   //bouton music 1
-  Sound son6(DELAY,"sonBoutton1","SonsBoutons/son1.txt");
+  Sound son6(DELAY,"sonBoutton1","SonsBoutons/son1.wav");
   ButtonSoundDevice boutonSound1(DELAY,son6,"SonsBoutons/son1.txt");
     //bouton music 2
   Sound son7(DELAY,"sonBoutton2","SonsBoutons/son1.txt");
