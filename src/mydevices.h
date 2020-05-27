@@ -115,13 +115,14 @@ public:
 class Vumeter: public Device{
 	protected:
 	vector <DigitalActuatorLED> vectorLED;
+	string moduleTag;
 	int intensity;
 	int temps;
 	int state;
 	
 	public:
 		// initialisation du temps de rafraichiisement
-	  Vumeter(int t);
+	  Vumeter(int t, string name);
 	  // thread representant l'actionneur et permettant de fonctionner independamment de la board
 	  virtual void run();
 	  // allume les LED en fonction de l'intensite

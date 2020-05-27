@@ -131,7 +131,8 @@ void I2CActuatorScreen::run(){
 }
 
 
-Vumeter::Vumeter(int t):Device(){
+Vumeter::Vumeter(int t, string name):Device(){
+        moduleTag=name;
 	intensity=0;
 	state=0;
 	temps=t;
@@ -167,9 +168,9 @@ void Vumeter::run(){
 		if(ptrmem!=NULL)
 			state=*ptrmem;
 		if (intensity==0)
-			cout<<"Vumeter est eteint"<<endl;
+			cout<<"VUMETRE "+moduleTag+" : O O O O O"<<endl;
 		else	{
-			cout<<"Vumeter est allume"<<endl;
+			cout<<"VUMETRE "+moduleTag+" : ";
 			for (int i=0;i<vectorLED.size();i++){
 				if (i<intensity){
 					turnOnLight(i);
@@ -179,7 +180,11 @@ void Vumeter::run(){
 					turnOffLight(i);
 				}
 			}
-			cout<<j<<" voyants sont allumés"<<endl;
+			for(int k=0;k<j;k++)
+			  cout << "@ ";
+			for(int k=0;k<5-j;k++)
+			  cout << "O ";
+			cout << endl;
 		}	
 		sleep(temps);
 	}
