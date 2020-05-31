@@ -9,24 +9,25 @@ int main(){
   AnalogSensorTemperature temperature(DELAY,TEMP);
   AnalogSensorLuminosity luminosity(DELAY);
   DigitalActuatorLED led1(DELAY);
-  Vumeter vumetre1(DELAY,"LUM");
-  Vumeter vumetre2(DELAY,"PROX");
+  Vumeter vumetre1(DELAY,"LUM",0);
+  Vumeter vumetre2(DELAY,"PROX",1);
   IntelligentDigitalActuatorLED led2(DELAY);
   I2CActuatorScreen screen;
   ExternalDigitalSensorButton button(DELAY);
   
   // capteur luminosite music
-  Sound son1(DELAY,"SON LUM 1","SonsLuminosite/loc1.wav");
-  Sound son2(DELAY,"SON LUM 2","SonsLuminosite/loc2.wav");
-  Sound son3(DELAY,"SON LUM 3","SonsLuminosite/loc3.wav");
-  Sound son4(DELAY,"SON LUM 4","SonsLuminosite/loc4.wav");
-  Sound son5(DELAY,"SON LUM 5","SonsLuminosite/loc5.wav");
+  Sound son1(DELAY,"SON LUM 1 ","SonsLuminosite/loc1.wav");
+  Sound son2(DELAY,"SON LUM 2 ","SonsLuminosite/loc2.wav");
+  Sound son3(DELAY,"SON LUM 3 ","SonsLuminosite/loc3.wav");
+  Sound son4(DELAY,"SON LUM 4 ","SonsLuminosite/loc4.wav");
+  Sound son5(DELAY,"SON LUM 5 ","SonsLuminosite/loc5.wav");
   AnalogSensorLuminositySoundDevice capteurMusical1(DELAY,&vumetre1);
   capteurMusical1.addSound(son1);
   capteurMusical1.addSound(son2);
   capteurMusical1.addSound(son3);
   capteurMusical1.addSound(son4);
   capteurMusical1.addSound(son5);
+
 
   Sound son6(DELAY,"SON PROX 1","SonsProximite/loc6.wav");
   Sound son7(DELAY,"SON PROX 2","SonsProximite/loc7.wav");
@@ -51,19 +52,13 @@ int main(){
   Instrument monInstrument(boutonSound1,boutonSound2,capteurMusical1);
 
   // branchement des capteurs actionneurs
-  esp8266.pin(5,vumetre1);
-  esp8266.pin(6,capteurMusical1);
-  esp8266.pin(7,boutonSound1);
-  esp8266.pin(8,boutonSound2);
-  esp8266.pin(9,capteurMusical2);
-  esp8266.pin(10,vumetre2);
+  esp8266.pin(10,vumetre1);
+  esp8266.pin(11,capteurMusical1);
+  esp8266.pin(12,boutonSound1);
+  esp8266.pin(13,boutonSound2);
+  esp8266.pin(14,capteurMusical2);
+  esp8266.pin(15,vumetre2);
   monInstrument.run();
- 
-/* 
-  esp8266.pin(3,led2);
-
-
-  esp8266.pin(3,led2); */
 
   
   // allumage de la carte

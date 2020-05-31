@@ -18,6 +18,10 @@ string Sound::getSoundTag(){
   return soundTag;
 }
 
+void Sound::setVolume(int vol){
+	son.setVolume(vol);
+}
+
 
 //classe ExternalDigitalSensorButton
 ExternalDigitalSensorButton::ExternalDigitalSensorButton(int d):Device(),temps(d){
@@ -91,6 +95,10 @@ void DigitalActuatorLED::setState(int d){
 	state=d;
 }
 
+int DigitalActuatorLED::getState(){
+	return state;
+}
+
 
 void IntelligentDigitalActuatorLED::run(){
   int old_state;
@@ -131,10 +139,11 @@ void I2CActuatorScreen::run(){
 }
 
 
-Vumeter::Vumeter(int t, string name):Device(){
+Vumeter::Vumeter(int t, string name,int numVum):Device(){
         moduleTag=name;
 	intensity=0;
 	state=0;
+	numeroVumeter=numVum;
 	temps=t;
 	DigitalActuatorLED LED1(DELAY);
 	DigitalActuatorLED LED2(DELAY);
@@ -149,6 +158,9 @@ Vumeter::Vumeter(int t, string name):Device(){
 	vectorLED.push_back(LED5);
 }
 
+vector <DigitalActuatorLED> Vumeter::getVectorLED(){
+	return vectorLED;
+}
 
 void Vumeter::turnOnLight(int d){
 	vectorLED[d].setState(HIGH);
@@ -167,7 +179,7 @@ void Vumeter::run(){
 		int j=0;
 		if(ptrmem!=NULL)
 			state=*ptrmem;
-		if (intensity==0)
+		if (intensity==-1)
 			cout<<"VUMETRE "+moduleTag+" : O O O O O"<<endl;
 		else	{
 			cout<<"VUMETRE "+moduleTag+" : ";
@@ -180,9 +192,9 @@ void Vumeter::run(){
 					turnOffLight(i);
 				}
 			}
-			for(int k=0;k<j;k++)
+			for(int k=0;k<=j;k++)
 			  cout << "@ ";
-			for(int k=0;k<5-j;k++)
+			for(int k=0;k<5-j-1;k++)
 			  cout << "O ";
 			cout << endl;
 		}	
@@ -234,7 +246,7 @@ void AnalogSensorUltrasoundSoundDevice::run(){
 		    m_Vumeter->setIntensity(intensity);
 		  }
 		  else
-		    m_Vumeter->setIntensity(0);
+		    m_Vumeter->setIntensity(-1);
 		}
 		sleep(temps);
 	}

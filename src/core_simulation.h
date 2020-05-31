@@ -6,7 +6,7 @@
 #include <thread>
 #include <mutex>
 
-#define DELAY 3
+#define DELAY 1
 #define TEMP 22
 #define HIGH 1
 #define LOW 0

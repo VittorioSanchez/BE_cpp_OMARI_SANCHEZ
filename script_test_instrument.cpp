@@ -29,19 +29,21 @@ int main(){
   while(1){
     for(int i=0; i<4;i++){
       if(i==0){
-	creerFichier(son_bouton1);
-	ecrireFichierVal(locProximity,tabProx[index%10]);
+		creerFichier(son_bouton2);
+		 ecrireFichierVal(locLuminosity,tabLum[(index)%10]);
       }
       if(i==2){
-	creerFichier(son_bouton1);
-      }
-      creerFichier(son_bouton2);
+		  creerFichier(son_bouton2);
+      }     
+	  creerFichier(son_bouton1);
+	  ecrireFichierVal(locProximity,tabProx[index%10]);
+	  
       sleep(1);
       remove(son_bouton1.c_str());
       remove(son_bouton2.c_str());
+	  index+=1;
     }
-    ecrireFichierVal(locLuminosity,tabLum[index%10]);
-    index+=1;
+
   }
 }
 

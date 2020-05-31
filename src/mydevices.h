@@ -28,6 +28,7 @@ class Sound {
     buffer.loadFromFile(fileLocation);
     son.setBuffer(buffer);};
   void playSound();
+  void setVolume(int vol);
   string getSoundTag();
   
 };
@@ -89,6 +90,7 @@ public:
   // thread representant l'actionneur et permettant de fonctionner independamment de la board
   virtual void run();
   void setState(int d);
+  int getState();
 };
 
 class IntelligentDigitalActuatorLED: public DigitalActuatorLED{
@@ -114,6 +116,7 @@ public:
 
 class Vumeter: public Device{
 	protected:
+	int numeroVumeter;
 	vector <DigitalActuatorLED> vectorLED;
 	string moduleTag;
 	int intensity;
@@ -122,9 +125,10 @@ class Vumeter: public Device{
 	
 	public:
 		// initialisation du temps de rafraichiisement
-	  Vumeter(int t, string name);
+	  Vumeter(int t, string name,int numVum);
 	  // thread representant l'actionneur et permettant de fonctionner independamment de la board
 	  virtual void run();
+	  vector <DigitalActuatorLED> getVectorLED();
 	  // allume les LED en fonction de l'intensite
 	  void turnOnLight(int d);
 	  void turnOffLight(int d);
