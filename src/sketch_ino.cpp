@@ -52,56 +52,7 @@ void Board::loop(){
 			}
 		}
 	  }
-  }
-  
-  
-  
-  
-  for(i=0;i<10;i++){
-/*     // lecture sur la pin 1 : capteur de temperature
-    val=analogRead(1);
-    sprintf(buf,"temperature %d",val);
-	Serial.println(buf);
-    if(cpt%5==0){
-        // tous les 5 fois on affiche sur l ecran la temperature
-      sprintf(buf,"%d",val);
-      bus.write(1,buf,100);
-    }
-       	// lecture sur la pin 2 : capteur de luminosite
-	 val2=analogRead(2);
-	 sprintf(buf,"luminosity %d",val2);
-	 Serial.println(buf);
-	 if(cpt%5==0){
-	   sprintf(buf,"%d",val2);
-	   bus.write(1,buf,100);
-	 }
-	 // lecture sur la pin 4 : button externe
-	 val4=analogRead(4);
-	 sprintf(buf,"etat bouton %d",val4);
-	 Serial.println(buf);
-	 if(cpt%5==0){
-	   sprintf(buf,"%d",val4);
-	   bus.write(1,buf,100);
-	 } */
-	  // lecture sur la pin 5 : vumetre
-	 //val5=analogRead(5);
-	 //val6=analogRead(6);
-
-	 
-    cpt++;
-    sleep(1);
-  }
-/* on eteint et on allume la LED
-  if(bascule){
-    digitalWrite(0,HIGH);
-    digitalWrite(3,HIGH);
-  }
-  else{
-    digitalWrite(0,LOW);
-    digitalWrite(3,LOW);
-  }
-  bascule=1-bascule; */
-  
+}  
   cout<< "\n";
 }
 
